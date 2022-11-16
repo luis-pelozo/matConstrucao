@@ -110,16 +110,43 @@ public class Loja {
 		}
 	}
 
+	private ArrayList<Cupom> listaDeCupons = new ArrayList<Cupom>();
 
-    /*private ArrayList<Cupom> listaDeCupons = new ArrayList<Cupom>();
-
-    public ArrayList<Cupom> getListaDeCupons() {
+	public ArrayList<Cupom> getListaDeCupons() {
 		return listaDeCupons;
 	}
 
 	public void setListaDeCupons(ArrayList<Cupom> listaDeCupons) {
 		this.listaDeCupons = listaDeCupons;
-	}*/
 
-    
+	}
+	public void gerarCupom(Cupom cupom) {
+
+		listaDeCupons.add(cupom);
+	}
+
+	public String mostrarCuponsGerados() {
+
+		String informacoes = "";
+
+		for (Cupom cupom : this.listaDeCupons) {
+
+			informacoes += "Data: " + cupom.getDataDaVenda() + "\n" + "Produto: " + cupom.getDescricao()
+					+ "\n" + "Valor: R$" + cupom.getPreco() + "\n" + "Quantidade: " + cupom.getQuantidade()
+					+ " unid" + "\n" + "Valor total: R$" + df.format(cupom.getValorTotal()) + "\n" + "\n";
+		}
+		return informacoes;
+	}
+
+	public String calculaTotalCupons() {
+
+		String informacoes = "";
+		double valorTotal = 0;
+
+		for (Cupom cupom : this.listaDeCupons) {
+			valorTotal += cupom.getValorTotal();
+		}
+		informacoes += "Valor total de cupons gerados: R$" + df.format(valorTotal);
+		return informacoes;
+	}
 }

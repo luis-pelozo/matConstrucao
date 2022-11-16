@@ -7,7 +7,7 @@ public class EntradaSaida {
 
     public static int solicitaOpcao() {
 		String[] opcoes = { "Cadastrar", "Mostrar produtos cad", "Adicionar produtos", "Ver estoque de produtos", "Vender",
-				 "Cupons impressos", "Valor total de cupons", "Sair da loja" };
+				 "Cupons impressos", "Valor de cupons gerados", "Sair da loja" };
 
 		JComboBox<String> menu = new JComboBox<String>(opcoes);
 		JOptionPane.showConfirmDialog(null, menu, "Selecione a ação desejada", JOptionPane.OK_CANCEL_OPTION);

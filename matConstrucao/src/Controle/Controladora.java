@@ -47,7 +47,7 @@ public class Controladora {
 
                 case 2:
                 if (loja.getListaDeProdutos().isEmpty()) {
-					JOptionPane.showMessageDialog(null, "o Estoque está vazio!");
+					JOptionPane.showMessageDialog(null, "Ainda não tem produto cadastrado!");
 				} else {
                     String informacoes = this.loja.verProdCadastrados();
                     EntradaSaida.mostrarProdCadastrados(informacoes);
@@ -80,22 +80,44 @@ public class Controladora {
 					int codigo = EntradaSaida.solicitaCodigo();
 					int qntdeVendida = EntradaSaida.pedeQuantidadeProdutos();
 					Produtos produtao = this.loja.pegaProduto(codigo);
+
 					if (produtao.getQuantidadeProdutos() - qntdeVendida < 0) {
 						JOptionPane.showMessageDialog(null, "A quantidade é maior do que a disponivel para venda");
-					} else {
+					
+                    }else {
 						this.loja.venderProduto(codigo, qntdeVendida);
 						Cupom cupom = new Cupom();
 						cupom.setDataVenda(LocalDateTime.now());
 						cupom.setDescricao(produtao.getDescricao());
-						cupom.setQntde(qntdeVendida);
+						cupom.setQuantidade(qntdeVendida);
 						cupom.setPreco(produtao.getPreco());
 						cupom.setValorTotal(produtao.getPreco() * qntdeVendida);
 						this.loja.gerarCupom(cupom);
 
 					}
 				}
+                break;
+                
+                case 5:
+                if (loja.getListaDeCupons().isEmpty()) {
+					JOptionPane.showMessageDialog(null, "Não há cupons gerados!");
+				} else {
+					String informacoes = this.loja.mostrarCuponsGerados();
+					JOptionPane.showMessageDialog(null, informacoes, "Cupons Gerados", JOptionPane.INFORMATION_MESSAGE);
+				}
+				break;
 
-                break; 
+                case 6:
+				if (loja.getListaDeCupons().isEmpty()) {
+
+					JOptionPane.showMessageDialog(null, "Ainda não há nenhum cupom gerado");
+
+				} else {
+
+					String informacoes = this.loja.calculaTotalCupons();
+					JOptionPane.showMessageDialog(null, informacoes, "Valor Total de Cupons", JOptionPane.INFORMATION_MESSAGE);
+				}
+				break;
             }
 
         }while(opcao !=7);

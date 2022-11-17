@@ -2,11 +2,7 @@ package Modelo;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
-
 import javax.swing.JOptionPane;
-
-import Visualizacao.EntradaSaida;
-
 public class Loja {
 
     private ArrayList<Produtos> listaDeProdutos = new ArrayList<Produtos>();
@@ -45,7 +41,6 @@ public class Loja {
 
 		return informacoes;
 	}
-
 
     public void mostraEstoque(int qntdeEstoque, int codigoEstoque) {
 
@@ -118,19 +113,15 @@ public class Loja {
 
 	public void setListaDeCupons(ArrayList<Cupom> listaDeCupons) {
 		this.listaDeCupons = listaDeCupons;
-
 	}
-	public void gerarCupom(Cupom cupom) {
 
+	public void gerarCupom(Cupom cupom) {
 		listaDeCupons.add(cupom);
 	}
 
 	public String mostrarCuponsGerados() {
-
 		String informacoes = "";
-
 		for (Cupom cupom : this.listaDeCupons) {
-
 			informacoes += "Data: " + cupom.getDataDaVenda() + "\n" + "Produto: " + cupom.getDescricao()
 					+ "\n" + "Valor: R$" + cupom.getPreco() + "\n" + "Quantidade: " + cupom.getQuantidade()
 					+ " unid" + "\n" + "Valor total: R$" + df.format(cupom.getValorTotal()) + "\n" + "\n";
@@ -139,10 +130,8 @@ public class Loja {
 	}
 
 	public String calculaTotalCupons() {
-
 		String informacoes = "";
 		double valorTotal = 0;
-
 		for (Cupom cupom : this.listaDeCupons) {
 			valorTotal += cupom.getValorTotal();
 		}

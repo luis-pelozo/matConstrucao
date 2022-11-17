@@ -44,7 +44,4 @@ public class EntradaSaida {
 		JOptionPane.showMessageDialog(null, informacoes, "Produtos em Estoque", JOptionPane.INFORMATION_MESSAGE);
 	}
 
-
-
-    
 }

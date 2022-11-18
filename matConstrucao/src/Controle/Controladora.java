@@ -1,15 +1,11 @@
 package Controle;
 
 import java.time.LocalDateTime;
-
 import javax.swing.JOptionPane;
-
 import Modelo.Cupom;
 import Modelo.Loja;
 import Modelo.Produtos;
 import Visualizacao.EntradaSaida;
-
-
 public class Controladora {
     Loja loja = new Loja();
 
@@ -23,11 +19,14 @@ public class Controladora {
                 case 0:
                     Produtos produtos= new Produtos();
                     int adicionarCodigo = EntradaSaida.solicitaCodigo();
-
+                    while(adicionarCodigo<= 0){
+                        JOptionPane.showMessageDialog(null, "Código inválido, tente novamente");
+                        adicionarCodigo = EntradaSaida.solicitaCodigo();
+                    }
                     while (this.loja.verificaCodigo(adicionarCodigo)) {
                         JOptionPane.showMessageDialog(null, "Este código ja existe no estoque");
                         adicionarCodigo = EntradaSaida.solicitaCodigo();
-                    }
+                    }  
                     produtos.setCodigo(adicionarCodigo);
                     produtos.setDescricao(EntradaSaida.solicitaDescicao());
                     produtos.setPreco(EntradaSaida.solicitaValor());
@@ -51,8 +50,6 @@ public class Controladora {
 				} else {
                     String informacoes = this.loja.verProdCadastrados();
                     EntradaSaida.mostrarProdCadastrados(informacoes);
-
-
 					int codigoEstoque = EntradaSaida.solicitaCodigo();
 
 					while (!this.loja.verificaCodigo(codigoEstoque)) {
@@ -71,20 +68,25 @@ public class Controladora {
                 break;
 
                 case 4:
-
                 if (this.loja.getListaDeProdutos().isEmpty()) {
 					JOptionPane.showMessageDialog(null, "Você não tem produtos para vender");
 
 				} else {
 
 					int codigo = EntradaSaida.solicitaCodigo();
-					int qntdeVendida = EntradaSaida.pedeQuantidadeProdutos();
+					
 					Produtos produtao = this.loja.pegaProduto(codigo);
 
-					if (produtao.getQuantidadeProdutos() - qntdeVendida < 0) {
-						JOptionPane.showMessageDialog(null, "A quantidade é maior do que a disponivel para venda");
+					if (produtao.getQuantidadeProdutos()<=0){ //- qntdeVendida <= 0) {
+						JOptionPane.showMessageDialog(null, "Este produto não tem em estoque");
 					
                     }else {
+                        int qntdeVendida = EntradaSaida.pedeQuantidadeProdutos();
+                        if (produtao.getQuantidadeProdutos() < qntdeVendida){ 
+                            JOptionPane.showMessageDialog(null, "Não pode vender mais do que tem em estoque");
+                        
+                        }else {
+
 						this.loja.venderProduto(codigo, qntdeVendida);
 						Cupom cupom = new Cupom();
 						cupom.setDataVenda(LocalDateTime.now());
@@ -93,7 +95,7 @@ public class Controladora {
 						cupom.setPreco(produtao.getPreco());
 						cupom.setValorTotal(produtao.getPreco() * qntdeVendida);
 						this.loja.gerarCupom(cupom);
-
+                        }
 					}
 				}
                 break;
@@ -109,9 +111,7 @@ public class Controladora {
 
                 case 6:
 				if (loja.getListaDeCupons().isEmpty()) {
-
 					JOptionPane.showMessageDialog(null, "Ainda não há nenhum cupom gerado");
-
 				} else {
 
 					String informacoes = this.loja.calculaTotalCupons();

@@ -18,7 +18,6 @@ public class Loja {
     public void cadastrarProduto(Produtos produto, int addCodigo) {
 		listaDeProdutos.add(produto);
 		JOptionPane.showMessageDialog(null, "Produto cadastrado com sucesso");
-
 	}
 
     public boolean verificaCodigo(int addCodigo) {
@@ -38,28 +37,22 @@ public class Loja {
 		for (Produtos produto : this.listaDeProdutos) {
 			informacoes += "#" + produto.getCodigo()  + " -  " + produto.getDescricao() +  " - R$" + df.format(produto.getPreco()) + "\n" + "\n";
 		}
-
 		return informacoes;
 	}
 
     public void mostraEstoque(int qntdeEstoque, int codigoEstoque) {
-
 		for (int i = 0; i < listaDeProdutos.size(); i++) {
-
 			Produtos produto = listaDeProdutos.get(i);
-
 			if (produto.getCodigo() == codigoEstoque) {
 				produto.setQuantidadeProdutos(produto.getQuantidadeProdutos() + qntdeEstoque);
 				JOptionPane.showMessageDialog(null, "Estoque cadastrado!");
 			}
 		}
-
 	}
 
     public String verEstoque() {
 
 		String infoEstoque = "";
-
 		for (Produtos produto : this.listaDeProdutos) {
 			infoEstoque += "#" + produto.getCodigo() + " - " + produto.getDescricao() + "\n"
 					+ "Quantidade em estoque: " + produto.getQuantidadeProdutos() + "\n" + "\n";
@@ -86,13 +79,10 @@ public class Loja {
 	}
 
     public void venderProduto(int codigo, int qntdeVendida) {
-
 		boolean verificaRemocao = false;
 
 		for (int i = 0; i < listaDeProdutos.size(); i++) {
-
 			Produtos produto = listaDeProdutos.get(i);
-
 			if (produto.getCodigo() == codigo) {
 				verificaRemocao = true;
 				JOptionPane.showMessageDialog(null, "Vendido: " + qntdeVendida + " " + produto.getDescricao());
@@ -138,4 +128,5 @@ public class Loja {
 		informacoes += "Valor total de cupons gerados: R$" + df.format(valorTotal);
 		return informacoes;
 	}
+	
 }
